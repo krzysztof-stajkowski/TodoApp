@@ -9,21 +9,11 @@ import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @SpringBootApplication
-public class TodoAppApplication implements RepositoryRestConfigurer {
+public class TodoAppApplication {
 
     public static void main(String[] args) {
         //to jest odpalane w tle na Tomcacie (localhost 8080)
         SpringApplication.run(TodoAppApplication.class, args);
-    }
-
-    //aby walidacja nie dawała błędu 500 należy zaimplementować RepositoryRestConfigurer oraz Overridować poniższy configureValidatingRepositoryEventListener
-    @Override
-    public void configureValidatingRepositoryEventListener(ValidatingRepositoryEventListener validatingListener) {
-        RepositoryRestConfigurer.super.configureValidatingRepositoryEventListener(validatingListener);
-        //powyższa linia jest automatycznie wstawiona'
-        //poniższe są dopisane
-        validatingListener.addValidator("beforeCreate", validator()); //validator to jest metoda którą sami zaraz tworzymy
-        validatingListener.addValidator("beforeSave", validator());
     }
 
     //customowa metoda - musi mieć adnotację @Bean
