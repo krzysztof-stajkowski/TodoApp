@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "tasks")
-class Task {
+public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //zmieniłem z AUTO na IDENTITY - sugestia trenera w tym przypadku zmian ustawień w bazie danych które będę robić później
     private int id;
