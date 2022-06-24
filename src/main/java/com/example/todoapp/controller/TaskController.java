@@ -1,8 +1,8 @@
 package com.example.todoapp.controller;
 
 
-import com.example.todoapp.model.Task;
 import com.example.todoapp.model.TaskRepository;
+import com.example.todoapp.model.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 class TaskController {
     public static final Logger logger = LoggerFactory.getLogger(TaskController.class);
-    private final TaskRepository repository; //aby to działało z poza pakietu model musi być TaskRepository interfejs public
+    private final TaskRepository repository; //aby to działało z poza pakietu model musi być SqlTaskRepository interfejs public
 
     //kiedyś trzeba było dodawać @Autowired ale nie jest to już potrzebne
     TaskController(final TaskRepository repository) {
