@@ -18,7 +18,8 @@ class TaskController {
         this.repository = repository;
     }
 
-    @GetMapping("/tasks") //dzieki temu nadpisaniu akcje na /tasks będą miały prostrzy zapis w postmanie ale bez HATEOAS i dodatkowo info w loggerze
+    @GetMapping(value = "/tasks", params = {"!sort","!page","!size"}) //dzieki temu nadpisaniu akcje na /tasks będą miały prostrzy zapis w postmanie ale bez HATEOAS i dodatkowo info w loggerze ALE tracimy możliwość sortowania w PostManie
+                            //dlatego dodajemy parametr params gdzie wykluczymy te Hateoasy aby one działały
     ResponseEntity<?> readAllTasks() {
         logger.warn("Exposing all the tasks!");
         return ResponseEntity.ok(repository.findAll());
