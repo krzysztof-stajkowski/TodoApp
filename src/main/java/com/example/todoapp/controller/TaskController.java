@@ -4,9 +4,11 @@ package com.example.todoapp.controller;
 import com.example.todoapp.model.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+
 
 @RepositoryRestController
 class TaskController {
@@ -23,6 +25,13 @@ class TaskController {
     ResponseEntity<?> readAllTasks() {
         logger.warn("Exposing all the tasks!");
         return ResponseEntity.ok(repository.findAll());
+    }
+
+    //przeciążam metodę o tej samej nazwie dodając parametr Pageable, w którym możemy pobierać wiele informacji o stronicowaniach, numery stron itp
+    @GetMapping(value = "/tasks")
+    ResponseEntity<?> readAllTasks(Pageable page) {
+        logger.info("Custom pageable");
+        return ResponseEntity.ok(repository.findAll(page));
     }
 
 }
