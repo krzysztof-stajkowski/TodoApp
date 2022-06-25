@@ -7,7 +7,7 @@
      banner-mode: off
    datasource:
     url: 'jdbc:h2:file:./todo-db'
-  task.allowMultipleTasksFromTempate: false
+  task.template.allowMultipleTasks: false
   jpa:
     hibernate:
       ddl-auto: create-drop

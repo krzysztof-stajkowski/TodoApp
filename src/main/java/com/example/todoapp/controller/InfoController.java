@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
         return dataSource.getUrl();
     }
 
-    @GetMapping("info/prop")
-    boolean  myProp(){
-        return myProp.isAllowMultipleTasksFromTempate();
+    @GetMapping("/info/prop")
+    boolean myProp()    {
+        return myProp.getTemplate().isAllowMultipleTasks();
     }
 }
