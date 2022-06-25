@@ -5,7 +5,7 @@
     path: '/console'
    datasource:
     url: 'jdbc:h2:file:./todo-db'
-  my.prop: 'test'
+  task.allowMultipleTasksFromTempate: false
   jpa:
     hibernate:
       ddl-auto: create-drop
