@@ -1,0 +1,8 @@
+#  Spacje i odst?py s? tutaj wyj?tkowo wa?ne inaczej nie zadzia?a
+  spring:
+   h2.console:
+    enabled: false
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
