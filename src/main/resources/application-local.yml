@@ -1,12 +1,10 @@
-#  Spacje i odst?py s? tutaj wyj?tkowo wa?ne inaczej nie zadzia?a
+#  Spacje i odst?py s? tutaj MEGA wa?ne inaczej nie zadzia?a
   spring:
-   h2.console:
-    enabled: true
-    path: '/console'
-   datasource:
-    url: 'jdbc:h2:file:./todo-db'
-    task.template.allowMultipleTasks: false
-
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
+    h2.console:
+      enabled: true
+      path: '/console'
+    datasource:
+      url: 'jdbc:h2:file:./todo-db'
+    jpa:
+      hibernate:
+        ddl-auto: validate
