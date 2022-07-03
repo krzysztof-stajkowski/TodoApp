@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -41,14 +42,14 @@ class TaskController {
     }
 
     @GetMapping("tasks/{id}")
-    ResponseEntity<Task> readTask(@PathVariable int id){
+    ResponseEntity<Task> readTask(@PathVariable int id) {
         return repository.findById((id))
                 .map(task -> ResponseEntity.ok(task))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/tasks")
-    ResponseEntity<Task> createTask(@RequestBody @Valid Task toCreate){
+    ResponseEntity<Task> createTask(@RequestBody @Valid Task toCreate) {
         Task result = repository.save(toCreate);
         return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
     }
@@ -56,11 +57,22 @@ class TaskController {
 
     @PutMapping("tasks/{id}")
     ResponseEntity<?> updateTask(@PathVariable int id, @RequestBody Task toUpdate) {
-        if (!repository.existsById(id)){
+        if (!repository.existsById(id)) {
             return ResponseEntity.notFound().build();
-   }
+        }
         toUpdate.setId(id);
         repository.save(toUpdate);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Transactional //metoda musi być public ; na początku metody ma być transaction begin a na końcu transaction commit do bazy danych |Hibernate ORM
+    @PatchMapping("tasks/{id}") //w Postmanie wywołując metodę Patch zmienia się Done z tru na false i odwrotnie przy wybranym ID np. tasks/2
+    public ResponseEntity<?> toggleTask(@PathVariable int id) {
+        if (!repository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        repository.findById(id)
+                .ifPresent(task -> task.setDone(!task.isDone()));
         return ResponseEntity.noContent().build();
     }
 
