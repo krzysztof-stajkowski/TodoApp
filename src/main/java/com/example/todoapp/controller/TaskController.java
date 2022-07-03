@@ -60,13 +60,18 @@ class TaskController {
         if (!repository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        toUpdate.setId(id);
-        repository.save(toUpdate);
+        repository.findById(id)
+                .ifPresent(task -> { //to jest przykład ręcznego "ominięcia" adnotacji @Transactional ale zaleca się używac adnotacji
+                    task.updateFrom(toUpdate);
+                    repository.save(task);
+                });
         return ResponseEntity.noContent().build();
     }
 
-    @Transactional //metoda musi być public ; na początku metody ma być transaction begin a na końcu transaction commit do bazy danych |Hibernate ORM
-    @PatchMapping("tasks/{id}") //w Postmanie wywołując metodę Patch zmienia się Done z tru na false i odwrotnie przy wybranym ID np. tasks/2
+    @Transactional
+    //metoda musi być public ; na początku metody ma być transaction begin a na końcu transaction commit do bazy danych |Hibernate ORM
+    @PatchMapping("tasks/{id}")
+    //w Postmanie wywołując metodę Patch zmienia się Done z tru na false i odwrotnie przy wybranym ID np. tasks/2
     public ResponseEntity<?> toggleTask(@PathVariable int id) {
         if (!repository.existsById(id)) {
             return ResponseEntity.notFound().build();

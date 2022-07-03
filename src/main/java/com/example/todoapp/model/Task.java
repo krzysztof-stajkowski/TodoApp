@@ -38,7 +38,7 @@ public class Task {
         return id;
     }
 
-    public void setId(int id) {
+     void setId(int id) { //usunąłem public ponieważ zmieniamy styl stosując void preMerge
         this.id = id;
     }
 
@@ -57,4 +57,21 @@ public class Task {
     public void setDone(boolean done) {
         this.done = done;
     }
+
+    public void updateFrom(final Task source){
+        description = source.getDescription();
+        done = source.done;
+        deadline = source.deadline;
+    }
+
+    @PrePersist //funkcja się odpali przed zapisem do bazy. Za każdym razem gdy się jakaś encja zapisze to wtedy zapisze się data z tej funkcji
+    void prePersist(){
+        createdOn = LocalDateTime.now();
+    }
+
+    @PreUpdate //uruchamia się przed aktualizacją bazy
+    void preMerge(){
+        updatedOn = LocalDateTime.now();
+    }
+
 }
