@@ -3,6 +3,7 @@ package com.example.todoapp.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tasks")
@@ -13,6 +14,17 @@ public class Task {
     @NotBlank(message = "Tasks description must not be empty")
     private String description;
     private boolean done;
+
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(LocalDateTime deadline) {
+        this.deadline = deadline;
+    }
+
+    @Column() //można nadpisac nazwę lub kilka ustawień SQL (podgląd ctrl+spacja)
+    private LocalDateTime deadline;
 
     //pusty konstruktor aby hibernate nie miał kiedyś problemów przy zmianie repozytorium w interfejsie (adnotacji)
     public Task() {

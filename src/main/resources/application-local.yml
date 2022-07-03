@@ -8,3 +8,6 @@
     jpa:
       hibernate:
         ddl-auto: validate
+#        ddl -> data definition language. Gdy dodałem @Column w encji aplikacja się dzięki temu nie uruchamia
+#       [Schema-validation: missing column [deadline] in table [tasks] ].
+#       Trzeba dodać migracje SQL w db.migration.
