@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tasks")
-public class Task {
+public class Task extends BaseAuditbableEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //zmieniłem z AUTO na IDENTITY - sugestia trenera w tym przypadku zmian ustawień w bazie danych które będę robić później
     private int id;
@@ -16,8 +16,7 @@ public class Task {
     private boolean done;
     @Column() //można nadpisac nazwę lub kilka ustawień SQL (podgląd ctrl+spacja)
     private LocalDateTime deadline; //dodatny jest getter i setter aby w Jsonie były widoczne np. w Postmanie
-    private LocalDateTime createdOn;
-    private LocalDateTime updatedOn;
+
 
     public LocalDateTime getDeadline() {
         return deadline;
@@ -64,14 +63,6 @@ public class Task {
         deadline = source.deadline;
     }
 
-    @PrePersist //funkcja się odpali przed zapisem do bazy. Za każdym razem gdy się jakaś encja zapisze to wtedy zapisze się data z tej funkcji
-    void prePersist(){
-        createdOn = LocalDateTime.now();
-    }
 
-    @PreUpdate //uruchamia się przed aktualizacją bazy
-    void preMerge(){
-        updatedOn = LocalDateTime.now();
-    }
 
 }
