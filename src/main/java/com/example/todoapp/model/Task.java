@@ -14,6 +14,10 @@ public class Task {
     @NotBlank(message = "Tasks description must not be empty")
     private String description;
     private boolean done;
+    @Column() //można nadpisac nazwę lub kilka ustawień SQL (podgląd ctrl+spacja)
+    private LocalDateTime deadline; //dodatny jest getter i setter aby w Jsonie były widoczne np. w Postmanie
+    private LocalDateTime createdOn;
+    private LocalDateTime updatedOn;
 
     public LocalDateTime getDeadline() {
         return deadline;
@@ -23,8 +27,7 @@ public class Task {
         this.deadline = deadline;
     }
 
-    @Column() //można nadpisac nazwę lub kilka ustawień SQL (podgląd ctrl+spacja)
-    private LocalDateTime deadline;
+
 
     //pusty konstruktor aby hibernate nie miał kiedyś problemów przy zmianie repozytorium w interfejsie (adnotacji)
     public Task() {
